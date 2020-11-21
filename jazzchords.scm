@@ -193,7 +193,11 @@
                      #{
                        \once \override Score.RehearsalMark.self-alignment-X = #LEFT
                        \once \override Score.RehearsalMark.font-size = #0
-                       #(mark (markup #:jazzchord chord #:huge "/" #:jazzchord base))
+                       #(mark (markup #:translate '(0 . 2.5) #:jazzchord chord
+                                      #:hspace -3
+                                      #:draw-line '(3 . 3)
+                                      #:hspace -1
+                                      #:jazzchord base))
                        #}))
 
 (define jaz
