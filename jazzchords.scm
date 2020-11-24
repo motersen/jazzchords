@@ -99,7 +99,7 @@
 
 (define extension->markup
   (let ((match-modifier (make-regexp "^(M|Ma|Maj|sus|add|omit)" regexp/icase))
-        (match-step (make-regexp "^[1-9]{1,2}"))
+        (match-step (make-regexp "^[1-9]{1,2}|6/9"))
         (match-alteration (make-regexp "^(alt|altered)")))
     (define modifier->markup
       (regexp->markup match-modifier make-simple-markup))
