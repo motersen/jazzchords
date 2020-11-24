@@ -166,10 +166,34 @@
     (cons (make-sans-markup (make-concat-markup chord-markups))
           (cdr shoots-markup?))))
 
+(define slashchord->markup
+  (let ((match-slashchord (make-regexp "^/")))
+    (lambda (chord-markup rest)
+      (let ((match? (regexp-exec match-slashchord rest)))
+        (if (not match?)
+            (cons (list) rest)
+            (cons
+             (make-line-markup
+              (list
+               (make-translate-markup '(0 . 2.5)
+                                      chord-markup)
+               (make-hspace-markup -3)
+               (make-draw-line-markup '(3 . 3))
+               (make-hspace-markup -1)
+               (make-jazzchord-markup (match:suffix match?))))
+             (list)))))))
+
+(define (parse-complex-chord name)
+  (let* ((chord? (chordname->markup name))
+         (slashchord? (slashchord->markup (car chord?) (cdr chord?))))
+    (if (null? (car slashchord?))
+        (car chord?)
+        (car slashchord?))))
 
 (define-markup-command (jazzchord layout props name)
   (string?)
-  (chordname->stencil layout props name))
+  (interpret-markup layout props
+                    (parse-complex-chord name)))
 
 (define jazz (define-scheme-function (name) (string?)
                 #{
@@ -177,17 +201,6 @@
                   \once \override Score.RehearsalMark.font-size = #0
                   #(mark (markup #:jazzchord name))
                   #}))
-
-(define slashchord (define-scheme-function (chord base) (string? string?)
-                     #{
-                       \once \override Score.RehearsalMark.self-alignment-X = #LEFT
-                       \once \override Score.RehearsalMark.font-size = #0
-                       #(mark (markup #:translate '(0 . 2.5) #:jazzchord chord
-                                      #:hspace -3
-                                      #:draw-line '(3 . 3)
-                                      #:hspace -1
-                                      #:jazzchord base))
-                       #}))
 
 (define jaz
   (define-scheme-function (chord note) (string? ly:music?)
