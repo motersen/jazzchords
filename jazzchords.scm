@@ -38,10 +38,6 @@
     (and (not (null? result))
          result)))
 
-(define (markup?->stencil? layout props markup?)
-  (and (not (null? markup?))
-       (interpret-markup layout props markup?)))
-
 (define (regexp->markup regexp markup-constructor)
   (lambda (name)
     (let ((match? (regexp-exec regexp name)))
@@ -157,26 +153,19 @@
                           markup-acc
                           (cons (car markup?) markup-acc))))))
 
-(define (chordname->stencil layout props name)
-  (let* ((props (prepend-alist-chain 'font-family 'sans props))
-         (root? (root-basenote->markup name))
-         (root-stencil? (markup?->stencil? layout
-                                           (prepend-alist-chain 'font-size 2
-                                                                props)
-                                           (car root?)))
+(define (chordname->markup name)
+  (let* ((root? (root-basenote->markup name))
          (shoots-markup? (parse-sequence->markups (cdr root?)
                                                   (list accidental->markup
                                                         minor->markup
                                                         augmented->markup
                                                         diminished->markup
                                                         extensions->markup)))
-         (shoot-stencil? (and (not (null? (car shoots-markup?)))
-                                (interpret-markup
-                                 layout props
-                                 (make-concat-markup (car shoots-markup?))))))
-    (if (not root-stencil?)
-        (format #t "Chord ~S has no root!\n" name))
-    (stack-stencil-line 0 (filter ly:stencil? (list root-stencil? shoot-stencil?)))))
+         (chord-markups (cons (make-huge-markup (car root?))
+                              (car shoots-markup?))))
+    (cons (make-sans-markup (make-concat-markup chord-markups))
+          (cdr shoots-markup?))))
+
 
 (define-markup-command (jazzchord layout props name)
   (string?)
