@@ -26,17 +26,14 @@
 
 (use-modules (ice-9 regex))
 
-(define (collect-nonempty-markups? markups?)
-  ;; (()) -> list | #f
-  ;; collect successful parse results or #f if none were successful
+(define (collect-nonempty-markups markups?)
   (let ((result (fold-right (lambda (markup? acc)
                               (if (null? (car markup?))
                                   acc
                                   (cons (car markup?) acc)))
                             '()
                             markups?)))
-    (and (not (null? result))
-         result)))
+    result))
 
 (define (regexp->markup regexp markup-constructor)
   (lambda (name)
@@ -59,7 +56,7 @@
                                   (cdr accidental?))
                             accidental?)))
       (cons (make-concat-markup
-             (collect-nonempty-markups? (list root? accidental?)))
+             (collect-nonempty-markups (list root? accidental?)))
             (cdr accidental?)))))
 
 (define accidental->markup
@@ -125,7 +122,7 @@
       (let* ((modifier? (modifier->markup name))
              (option? (option->markup (cdr modifier?)))
              (alteration? (alteration->markup (cdr option?)))
-             (extension? (collect-nonempty-markups?
+             (extension? (collect-nonempty-markups
                           (list modifier? option? alteration?))))
         (cons (if (null? (car option?))
                   (list)
