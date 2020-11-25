@@ -185,7 +185,7 @@
                (make-hspace-markup -3)
                (make-draw-line-markup '(3 . 3))
                (make-hspace-markup -1)
-               (make-jazzchord-markup (match:suffix match?))))
+               (car (root-basenote->markup (match:suffix match?)))))
              (list)))))))
 
 (define (parse-complex-chord name)
