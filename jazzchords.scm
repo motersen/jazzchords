@@ -1,6 +1,7 @@
-;; Lilypond Jazz chord symbol parser
+;; jazzchords.scm
+;; Jazz chord symbol parser for lilypond
 ;;
-;; Moritz Petersen, 2020
+;; Copyright 2020 Moritz Petersen
 
 ;; Example markup tree for "F#mMaj7b13"
 ;;
