@@ -27,6 +27,10 @@
 ;;           (simple-markup "13")))))))))))
 
 
+;; ->markup parsers return pairs where
+;; car = resulting markup expression
+;; cdr = unprocessed part of input
+
 (use-modules (ice-9 regex))
 
 (define (collect-nonempty-markups markups?)
