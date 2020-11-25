@@ -63,8 +63,10 @@
                             (cons (make-small-markup (car accidental?))
                                   (cdr accidental?))
                             accidental?)))
-      (cons (make-concat-markup
-             (collect-nonempty-markups (list root? accidental?)))
+      (cons (make-sans-markup
+             (make-huge-markup
+              (make-concat-markup
+               (collect-nonempty-markups (list root? accidental?)))))
             (cdr accidental?)))))
 
 (define accidental->markup
@@ -165,10 +167,12 @@
                                                         minor->markup
                                                         augmented->markup
                                                         diminished->markup
-                                                        extensions->markup)))
-         (chord-markups (cons (make-huge-markup (car root?))
-                              (car shoots-markup?))))
-    (cons (make-sans-markup (make-concat-markup chord-markups))
+                                                        extensions->markup))))
+    (cons (make-concat-markup (list
+                               (car root?)
+                               (make-sans-markup
+                                (make-concat-markup
+                                 (car shoots-markup?)))))
           (cdr shoots-markup?))))
 
 (define slashchord->markup
