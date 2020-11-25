@@ -207,17 +207,21 @@
                   #(mark (markup #:jazzchord name))
                   #}))
 
-(define jaz
+(define jc
   (define-scheme-function (chord note) (string? ly:music?)
-    ;; if sequential music, take last element, return full music expr
-    (let ((articulations (list (make-music
-                                'TextScriptEvent
-                                'direction 1
-                                'text (markup #:jazzchord chord)))))
-      (set! (ly:music-property
-             (if (music-is-of-type? note 'sequential-music)
-                 (last (ly:music-property note 'elements))
-                 note)
-             'articulations)
-        articulations))
+    (let ((text (make-music
+                 'TextScriptEvent
+                 'direction 1
+                 'text (markup #:jazzchord chord)))
+          (articulations (ly:music-property
+                          (if (music-is-of-type? note 'sequential-music)
+                              (last (ly:music-property note 'elements))
+                              note)
+                          'articulations)))
+      (ly:music-set-property!
+       (if (music-is-of-type? note 'sequential-music)
+                              (last (ly:music-property note 'elements))
+                              note)
+       'articulations
+       (cons text articulations)))
     note))
