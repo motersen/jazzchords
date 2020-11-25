@@ -3,26 +3,29 @@
 ;; Moritz Petersen, 2020
 
 ;; Example markup tree for "F#mMaj7b13"
-;;   (let ((props (prepend-alist-chain 'font-family 'sans props)))
-;;     (stack-stencil-line 0
-;; 	                      (list
-;;                          (interpret-markup layout
-;;                                            (prepend-alist-chain 'font-size 2 props)
-;;                                            (make-simple-markup "F"))
-;;                          (interpret-markup
-;;                           layout props
-;;                           (list concat-markup
-;;                                 (list
-;;                                          (make-musicglyph-markup "accidentals.sharp")
-;;                                          (make-simple-markup "m")
-;;                                          (list super-markup
-;;                                                (list concat-markup
-;;                                                      (list
-;;                                                       (make-simple-markup "Maj7")
-;;                                                       (list concat-markup
-;;                                                             (list
-;;                                                              (make-musicglyph-markup "accidentals.flat"))
-;;                                                              (make-simple-markup"13")))))))))))))
+;;
+;; (sans-markup
+;;  (concat-markup
+;;   ((huge-markup
+;;     (concat-markup
+;;      ((simple-markup "F")
+;;       (small-markup
+;;        (normal-size-super-markup
+;;         (musicglyph-markup "accidentals.sharp"))))))
+;;    (simple-markup "m")
+;;    (normal-size-super-markup
+;;     (concat-markup
+;;      ((concat-markup
+;;        ((simple-markup "Maj")
+;;         (simple-markup "7")))
+;;       (concat-markup
+;;        ((concat-markup
+;;          ((hspace-markup
+;;            0.2)
+;;           (normal-size-super-markup
+;;            (musicglyph-markup "accidentals.flat"))
+;;           (simple-markup "13")))))))))))
+
 
 (use-modules (ice-9 regex))
 
