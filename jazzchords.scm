@@ -224,6 +224,8 @@
                   \once \override Score.RehearsalMark.font-size = #0
                   %% ensure chord symbols are not raised above volta brackets etc.
                   \once \override Score.RehearsalMark.outside-staff-priority = #550
+                  %% if chord symbols collide, space out music
+                  \once \markLengthOn
                   #(mark (markup #:jazzchord name))
                   #}))
 
@@ -246,6 +248,8 @@
        (cons text articulations)))
     #{
       \once \override TextScript.outside-staff-priority = #550
+      %% if chord symbols collide, space out music
+      \once \textLengthOn
       #note
       #}
     ))
