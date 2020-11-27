@@ -1,5 +1,5 @@
 ;; jazzchords.scm
-;; Jazz chord symbol parser and markup generator for lilypond
+;; Jazz chord symbol parser and LilyPond markup generator
 ;;
 ;; Copyright 2020 Moritz Petersen
 ;;
