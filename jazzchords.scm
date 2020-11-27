@@ -222,6 +222,8 @@
                 #{
                   \once \override Score.RehearsalMark.self-alignment-X = #LEFT
                   \once \override Score.RehearsalMark.font-size = #0
+                  %% ensure chord symbols are not raised above volta brackets etc.
+                  \once \override Score.RehearsalMark.outside-staff-priority = #550
                   #(mark (markup #:jazzchord name))
                   #}))
 
@@ -242,4 +244,8 @@
                               note)
        'articulations
        (cons text articulations)))
-    note))
+    #{
+      \once \override TextScript.outside-staff-priority = #550
+      #note
+      #}
+    ))
