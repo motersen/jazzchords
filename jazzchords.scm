@@ -17,27 +17,29 @@
 
 ;; Example markup tree for "F#mMaj7b13"
 ;;
-;; (sans-markup
-;;  (concat-markup
-;;   ((huge-markup
+;; (concat-markup
+;;  ((sans-markup
+;;    (huge-markup
 ;;     (concat-markup
 ;;      ((simple-markup "F")
 ;;       (small-markup
 ;;        (normal-size-super-markup
-;;         (musicglyph-markup "accidentals.sharp"))))))
-;;    (simple-markup "m")
-;;    (normal-size-super-markup
-;;     (concat-markup
-;;      ((concat-markup
-;;        ((simple-markup "Maj")
-;;         (simple-markup "7")))
+;;         (musicglyph-markup "accidentals.sharp")))))))
+;;   (sans-markup
+;;    (concat-markup
+;;     ((simple-markup "m")
+;;      (normal-size-super-markup
 ;;       (concat-markup
 ;;        ((concat-markup
-;;          ((hspace-markup
-;;            0.2)
-;;           (normal-size-super-markup
-;;            (musicglyph-markup "accidentals.flat"))
-;;           (simple-markup "13")))))))))))
+;;          ((simple-markup "Maj")
+;;           (simple-markup "7")))
+;;         (concat-markup
+;;          ((concat-markup
+;;            ((hspace-markup
+;;              0.2)
+;;             (normal-size-super-markup
+;;              (musicglyph-markup "accidentals.flat"))
+;;             (simple-markup "13")))))))))))))
 
 
 ;; ->markup parsers return pairs where
