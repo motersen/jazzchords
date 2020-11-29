@@ -197,13 +197,13 @@
             (cons chord-markup rest)
             (let ((basenote (root-basenote->markup (match:suffix match?))))
               (cons
-               (make-line-markup
+               (make-column-markup
                 (list
-                 (make-raise-markup 2.5 chord-markup)
-                 (make-hspace-markup -3)
-                 (make-draw-line-markup '(3 . 3))
-                 (make-hspace-markup -1)
-                 (car basenote)))
+                 (make-halign-markup RIGHT chord-markup)
+                 (make-vspace-markup -.5)
+                 (make-halign-markup CENTER (make-draw-line-markup '(3 . 3)))
+                 (make-vspace-markup -.4)
+                 (make-halign-markup LEFT (car basenote))))
                (cdr basenote))))))))
 
 (define (parse-complex-chord name)
