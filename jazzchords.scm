@@ -206,12 +206,28 @@
                  (make-halign-markup LEFT (car basenote))))
                (cdr basenote))))))))
 
+(define stacked-chords->markup
+  (let ((match-stacked-chord (make-regexp "^|" regexp/basic)))
+    (lambda (chord-markup rest)
+      (let ((match? (regexp-exec match-stacked-chord rest)))
+        (if (not match?)
+            (cons chord-markup rest)
+            (let ((bottom-chord (chordname->markup (match:suffix match?))))
+              (cons
+               (make-center-column-markup
+                (list
+                 chord-markup
+                 (make-pad-to-box-markup '(0 . 0)
+                                         '(-.75 . .75)
+                                         (make-draw-line-markup '(5 . 0)))
+                 (car bottom-chord)))
+               (cdr bottom-chord))))))))
+
 (define (parse-complex-chord name)
   (let* ((chord? (chordname->markup name))
-         (slashchord? (slashchord->markup (car chord?) (cdr chord?))))
-    (if (null? (car slashchord?))
-        (car chord?)
-        (car slashchord?))))
+         (stacked? (stacked-chords->markup (car chord?) (cdr chord?)))
+         (slashchord? (slashchord->markup (car stacked?) (cdr stacked?))))
+    (car slashchord?)))
 
 (define-markup-command (jazzchord layout props name)
   (string?)
