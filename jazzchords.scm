@@ -199,11 +199,11 @@
               (cons
                (make-column-markup
                 (list
-                 (make-halign-markup RIGHT chord-markup)
+                 (make-right-align-markup chord-markup)
                  (make-vspace-markup -.5)
-                 (make-halign-markup CENTER (make-draw-line-markup '(3 . 3)))
+                 (make-center-align-markup (make-draw-line-markup '(3 . 3)))
                  (make-vspace-markup -.4)
-                 (make-halign-markup LEFT (car basenote))))
+                 (make-left-align-markup (car basenote))))
                (cdr basenote))))))))
 
 (define stacked-chords->markup
