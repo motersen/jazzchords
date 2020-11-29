@@ -215,8 +215,17 @@
 
 (define-markup-command (jazzchord layout props name)
   (string?)
-  (interpret-markup layout props
-                    (parse-complex-chord name)))
+  (let ((override-props '((thickness . 1.5)
+                          (baseline-skip . 0)))
+        (prepend-prop (lambda (setting props)
+                        (prepend-alist-chain
+                         (car setting) (cdr setting)
+                         props))))
+    (interpret-markup layout
+                      (fold prepend-prop
+                            props
+                            override-props)
+                      (parse-complex-chord name))))
 
 (define jazz (define-scheme-function (name) (string?)
                 #{
