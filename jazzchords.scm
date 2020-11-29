@@ -194,13 +194,12 @@
     (lambda (chord-markup rest)
       (let ((match? (regexp-exec match-slashchord rest)))
         (if (not match?)
-            (cons (list) rest)
+            (cons chord-markup rest)
             (let ((basenote (root-basenote->markup (match:suffix match?))))
               (cons
                (make-line-markup
                 (list
-                 (make-translate-markup '(0 . 2.5)
-                                        chord-markup)
+                 (make-raise-markup 2.5 chord-markup)
                  (make-hspace-markup -3)
                  (make-draw-line-markup '(3 . 3))
                  (make-hspace-markup -1)
