@@ -105,8 +105,23 @@
                    (match:suffix match?))))))))
 
 (define augmented->markup
-  (let ((match-augmented (make-regexp "^(\\+|aug)")))
-    (regexp->markup match-augmented make-simple-markup)))
+  (let ((match-plus (make-regexp "^+" regexp/basic))
+        (match-aug (make-regexp "^aug" regexp/basic)))
+    (define (plus-markup name)
+      (let ((match? (regexp-exec match-plus name)))
+        (and match?
+             (cons (make-raise-markup
+                    .5 (make-huge-markup "+"))
+                   (match:suffix match?)))))
+    (define (aug-markup name)
+      (let ((match? (regexp-exec match-aug name)))
+        (and match?
+             (cons (make-simple-markup "aug")
+                   (match:suffix match?)))))
+    (lambda (name)
+      (or (plus-markup name)
+          (aug-markup name)
+          (cons (list) name)))))
 
 (define diminished->markup
   (let ((match-diminished (make-regexp "^0|o|dim")))
