@@ -114,8 +114,10 @@
       (let ((match? (regexp-exec match-diminished name)))
         (if (not match?)
             (cons (list) name)
-            (cons (list super-markup
-                        (make-larger-markup "o"))
+            (cons (make-concat-markup
+                   (list
+                    (make-hspace-markup .1)
+                    (make-normal-size-super-markup "o")))
                   (match:suffix match?)))))))
 
 (define extension->markup
