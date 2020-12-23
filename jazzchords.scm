@@ -290,8 +290,6 @@
        (cons text articulations)))
     #{
       \once \override TextScript.outside-staff-priority = #550
-      %% if chord symbols collide, space out music
-      \once \textLengthOn
       #note
       #}
     ))
