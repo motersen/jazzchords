@@ -35,8 +35,6 @@ $(load "../jazzchords.scm")
 	      \hspace #3
 	      \jazzchord "F13b9#11/G"
 	      \hspace #3
-	      \jazzchord "Eb|Db"
-	      \hspace #3
 	      \jazzchord "Gm7|Fm7/Bb"
 	    }
       \vspace #1
