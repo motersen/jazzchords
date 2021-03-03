@@ -90,7 +90,9 @@
                       (make-normal-size-super-markup
                        (case (string-ref substring 0)
                          ((#\#) (make-musicglyph-markup "accidentals.sharp"))
-                         ((#\b) (make-musicglyph-markup "accidentals.flat"))))))))
+                         ((#\b) (make-lower-markup
+                                 .4
+                                 (make-musicglyph-markup "accidentals.flat")))))))))
 
 (define minor->markup
   ;; don't match into maj, but do match when preceding other modifiers
