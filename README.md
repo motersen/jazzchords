@@ -2,7 +2,7 @@
 
 Jazz chord changes notation for lilypond
 
-![example](https://user-images.githubusercontent.com/6299210/102997276-fa92dc80-4524-11eb-8851-0c1213d9f1fa.png)
+![example](https://user-images.githubusercontent.com/6299210/109810436-d0971e00-7c29-11eb-8046-43387f2b080d.png)
 
 ## Commands
 - `\jazzchord <chordsymbol>` *markup command*: display chord
